@@ -24,7 +24,7 @@ plt.show()
 ```
 ## resultado
 <p align="center">
-<img width="900" height="390" alt="image" src="https://github.com/user-attachments/assets/c482b7ea-04d6-4140-8e1a-0904544b336d" />
+<img width="700" height="390" alt="image" src="https://github.com/user-attachments/assets/c482b7ea-04d6-4140-8e1a-0904544b336d" />
 </p>
 
 **Detección y visualización de contracciones**
