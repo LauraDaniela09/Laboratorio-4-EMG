@@ -193,9 +193,33 @@ El **método de Welch** se usa para ver cómo se distribuye la energía de una s
 ## resultado
 <img width="500" height="163" alt="image" src="https://github.com/user-attachments/assets/68e61788-d62a-4296-87a3-0be0eb9a5e4a" />
 
+**evolucion de las frecuencias**
 
+```python
+# === Graficar evolución de frecuencias ===
+plt.figure(figsize=(8,5))
+plt.plot(range(1, len(frecuencia_media)+1), frecuencia_media, 'o-', label='Frecuencia media')
+plt.plot(range(1, len(frecuencia_mediana)+1), frecuencia_mediana, 's-', label='Frecuencia mediana')
 
+plt.title('Evolucion de la frecuencia media y mediana')
+plt.xlabel('Numero de contraccion')
+plt.ylabel('Frecuencia (Hz)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+```
 
+`plt.figure(figsize=(8,5))` crea la figura con tamaño definido;
+`plt.plot(range(1, len(frecuencia_media)+1), frecuencia_media, 'o-', label='Frecuencia media') y plt.plot(..., frecuencia_mediana, 's-', label='Frecuencia mediana') `grafican las frecuencias media y mediana por número de contracción;
+`plt.title(...), plt.xlabel(...) y plt.ylabel(...)` agregan título y etiquetas;
+`plt.legend() `añade la leyenda; `plt.grid(True)` muestra la cuadrícula;
+`plt.tight_layout()` ajusta el diseño y `plt.show()` muestra la gráfica.
+
+## resultado
+<p align="center">
+<img width="400" height="490" alt="image" src="https://github.com/user-attachments/assets/1de932f4-ce92-4714-9274-18b3b7023d5a" />
+</p>
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 B 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
