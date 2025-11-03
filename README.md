@@ -24,6 +24,8 @@ y las funciones  `butter `,  `filtfilt ` y  `welch ` del módulo  `scipy.signal 
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 A 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
+![My First Board (1)](https://github.com/user-attachments/assets/2fb05c30-abe8-4d96-be04-2009afc80c6e)
+
 **visualizacion de la señal**
 ```python
 # === Cargar señal ===
@@ -222,7 +224,10 @@ plt.ylabel("Voltaje [V]")
 plt.grid(True)
 plt.show()
 ```
+<p align="center">
 <img width="700" height="393" alt="image" src="https://github.com/user-attachments/assets/4b143729-cc93-4c52-bfd8-1167aad52542" />
+</p>
+
 Se crea una ventana para fragmentar la señal completa y solo usar la parte donde se encuentran las contracciones. 
 Se grafica esta señal ya recortada pero sin filtrar.
 
@@ -238,7 +243,10 @@ plt.ylabel("Voltaje [V]")
 plt.grid(True)
 plt.show()
 ```
+<p align="center">
 <img width="700" height="393" alt="image" src="https://github.com/user-attachments/assets/b261bfb9-5750-48da-a790-3ebf49cba003" />
+</p>
+
 Se aplica el filtro definido anteriormente como pasabanda entre 20-450 Hz.
 Se grafica esta señal recortada y filtrada.
 ```python
@@ -264,7 +272,10 @@ plt.show()
 
 print(f" Se detectaron {len(picos)} contracciones.")
 ```
+<p align="center">
 <img width="700" height="394" alt="image" src="https://github.com/user-attachments/assets/8cb9b43d-b67a-41b3-b35b-82c62882e583" />
+</p>
+
 Se usa find peaks para identificar los picos (contracciones) y se grafica nuevamente la señal, pero resaltando estos picos identificados para ver su distribución y que sean correctos.
 
 ```python
@@ -352,8 +363,9 @@ plt.tight_layout()
 plt.show()
 ```
 Finalmente se grafica la tendencia de las frecuencias para analizar la fatiga y su comportamiento.
-<img width="689" height="390" alt="image" src="https://github.com/user-attachments/assets/8054892a-484e-4fa1-af47-59c0ee8c2d78" />
-
+<p align="center">
+<img width="400" height="390" alt="image" src="https://github.com/user-attachments/assets/8054892a-484e-4fa1-af47-59c0ee8c2d78" />
+</p>
 
 En el experimento se realizaron las medidas de varias contracciones del brazo al apretar un objeto. En la grafica se muestra que las frecuencias incialmente estan en valores promedios como 40-45 Hz, lo cual corresponde a actividad muscular normal, a partir de la cuarta contracción la frecuencia tiende a disminuir, indicando cierto nivel de fatiga muscular, aunque esta reducción no es muy extrema, por lo cual se podría decir que no se alcanzó la fatiga completamente.
 
