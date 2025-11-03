@@ -186,7 +186,7 @@ El **método de Welch** se usa para ver cómo se distribuye la energía de una s
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 B 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
-```
+```python
 signal = "captura_musculo.csv"
 data = pd.read_csv(signal, skiprows=1, names=["Tiempo", "Voltaje"])
 data["Tiempo"] = pd.to_numeric(data["Tiempo"], errors="coerce")
@@ -198,7 +198,7 @@ fs = 1 / np.mean(np.diff(t))  # frecuencia de muestreo inferida del tiempo
 print(f"Frecuencia de muestreo ≈ {fs:.1f} Hz")
 ```
 Se lee la señal del EMG guardada en un .csv que anteriormente fue obtenida usando electrodos, DAQ y STlink.
-```
+```python
 def butter_bandpass(lowcut, highcut, fs, order=4):
     nyq = 0.5 * fs
     low = lowcut / nyq
@@ -207,7 +207,7 @@ def butter_bandpass(lowcut, highcut, fs, order=4):
     return b, a
 ```
 Se define y diseña un filtro pasabanda tipo butterworth para usar más adelante.
-```
+```python
 t_inicio = 76.0
 t_fin = 82.5
 mask = (t >= t_inicio) & (t <= t_fin)
@@ -223,7 +223,82 @@ plt.grid(True)
 plt.show()
 ```
 Se crea una ventana para fragmentar la señal completa y solo usar la parte donde se encuentran las contracciones. 
-Se grafica esta señal ya recortada.
+Se grafica esta señal ya recortada pero sin filtrar.
+
+```python
+b, a = butter_bandpass(20, 450, fs)
+filtrada = filtfilt(b, a, emg_zoom)
+
+plt.figure(figsize=(12, 4))
+plt.plot(t_zoom, filtrada, color='b')
+plt.title(f"Señal EMG filtrada (20–450 Hz) ({t_inicio:.1f}s - {t_fin:.1f}s)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Voltaje [V]")
+plt.grid(True)
+plt.show()
+```
+Se aplica el filtro definido anteriormente como pasabanda entre 20-450 Hz.
+Se grafica esta señal recortada y filtrada.
+```python
+from scipy.signal import find_peaks
+
+
+picos, propiedades = find_peaks(
+    np.abs(filtrada),     
+    height=0.05,            
+    distance=fs*0.5,         
+    prominence=0.02         
+)
+
+plt.figure(figsize=(12, 4))
+plt.plot(t_zoom, filtrada, color='b')
+plt.plot(t_zoom[picos], filtrada[picos], 'ro', label='Contracciones detectadas')
+plt.title("Detección de contracciones musculares (picos EMG)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Voltaje [V]")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+print(f" Se detectaron {len(picos)} contracciones.")
+```
+Se usa find peaks para identificar los picos (contracciones) y se grafica nuevamente la señal, pero resaltando estos picos identificados para ver su distribución y que sean correctos.
+
+```python
+ventana = int(0.5 * fs) 
+
+segmentos = []
+for pico in picos:
+    inicio = max(pico - ventana, 0)
+    fin = min(pico + ventana, len(filtrada))
+    segmentos.append(filtrada[inicio:fin])
+```
+Se divide la señal entre cada una de sus contracciones para analizar individualmente.
+
+```python
+freq_medias = []
+freq_medianas = []
+
+for n, seg in enumerate(segmentos):
+    N = len(seg)
+    # FFT
+    fft_vals = np.fft.fft(seg)
+    fft_vals = np.abs(fft_vals[:N//2])  
+    freqs = np.fft.fftfreq(N, 1/fs)[:N//2]
+
+    Pxx = (fft_vals ** 2) / N
+
+    f_mean = np.sum(freqs * Pxx) / np.sum(Pxx)     
+    cumulative = np.cumsum(Pxx)
+    f_median = freqs[np.where(cumulative >= cumulative[-1]/2)[0][0]]  
+
+    freq_medias.append(f_mean)
+    freq_medianas.append(f_median)
+
+    print(f"Contracción {n+1}: Frecuencia media = {f_mean:.1f} Hz, Frecuencia mediana = {f_median:.1f} Hz")
+```
+Se crea un bucle donde por cada contracción se calcula la transformada de fourier, la potencia, la frecuencia media y la frecuencia mediana.
+Al final se escriben los datos obtenidos para cada contracción.
 
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 C 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
