@@ -35,6 +35,7 @@ flowchart TD
     G --> H[Analizar frecuencia y características de cada contracción]
     H --> I[Presentar resultados (gráficos y tablas)]
     I --> J[Fin]
+```
 
 **visualizacion de la señal**
 ```python
