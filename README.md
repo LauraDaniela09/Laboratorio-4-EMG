@@ -140,6 +140,14 @@ for i, (s, e) in enumerate(regiones):
 <img width="400" height="290" alt="image" src="https://github.com/user-attachments/assets/ff58afe2-3666-48cd-b38d-8c3d6b8d3e8d" />
 </p>
 
+<p align="center">
+<img width="400" height="290" alt="image" src="https://github.com/user-attachments/assets/856fcd43-0658-4365-857e-be4685b6cddf" />
+<img width="400" height="290" alt="image" src="https://github.com/user-attachments/assets/142ec87f-fafa-4ddb-ac60-224c7d3d745d" />
+</p>
+
+<p align="center">
+<img width="400" height="290" alt="image" src="https://github.com/user-attachments/assets/a00857b0-b69e-4f9f-8b1f-d719f6fcdbbd" />
+</p>
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 B 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
