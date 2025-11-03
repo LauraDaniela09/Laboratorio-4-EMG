@@ -403,6 +403,18 @@ Los cambios en la frecuencia y la fatiga fisiologica se basan en que a lo largo 
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 C 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
+```mermaid
+flowchart TD
+    A([Inicio]) --> B[Aplicar FFT a cada contraccion de la senal EMG]
+    B --> C[Obtener espectro de amplitud: frecuencia vs magnitud]
+    C --> D[Comparar primeras contracciones con las ultimas]
+    D --> E[Identificar reduccion del contenido de alta frecuencia]
+    E --> F[Calcular desplazamiento del pico espectral]
+    F --> G[Analizar relacion entre frecuencia y esfuerzo sostenido]
+    G --> H[Redactar conclusiones sobre el uso del analisis espectral]
+    H --> I([Fin])
+```
+
 ```python
 # Cargar datos
 data = pd.read_csv("emg_data1.csv")
