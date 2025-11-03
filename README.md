@@ -118,3 +118,38 @@ plt.show()
 <img width="844" height="316" alt="image" src="https://github.com/user-attachments/assets/8e581ef1-051e-4037-a31d-4e4bf310b28b" />
 
 Frecuencia de muestreo estimada: 2000.00 Hz
+
+```python
+# --- b) Gráfica del espectro de amplitud ---
+
+plt.figure(figsize=(10,4))
+plt.plot(frecuencias[:N//2], amplitud[:N//2])
+plt.title("Espectro de amplitud (Frecuencia vs Magnitud)")
+plt.xlabel("Frecuencia [Hz]")
+plt.ylabel("Amplitud")
+plt.grid(True)
+plt.show()
+```
+
+<img width="855" height="393" alt="image" src="https://github.com/user-attachments/assets/5076dbf2-41a4-47bc-967a-12ad0284695e" />
+
+```python
+mitad = N // 2
+segmento1 = emg[:mitad]
+segmento2 = emg[mitad:]
+
+fft_seg1 = np.abs(fft(segmento1)) / len(segmento1)
+fft_seg2 = np.abs(fft(segmento2)) / len(segmento2)
+f_seg = fftfreq(len(segmento1), 1/fs)
+
+plt.figure(figsize=(10,4))
+plt.plot(f_seg[:len(f_seg)//2], fft_seg1[:len(f_seg)//2], label="Primeras contracciones", color='blue')
+plt.plot(f_seg[:len(f_seg)//2], fft_seg2[:len(f_seg)//2], label="Últimas contracciones", color='orange', alpha=0.7)
+plt.title("Comparación: primeras vs últimas contracciones")
+plt.xlabel("Frecuencia [Hz]")
+plt.ylabel("Amplitud")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+<img width="855" height="394" alt="image" src="https://github.com/user-attachments/assets/ba531b9c-5150-4fb1-9a13-340b40544f6f" />
