@@ -323,6 +323,13 @@ for n, seg in enumerate(segmentos):
 ```
 Se grafican individualmente los espectros de frecuencias de cada contracción.
 <img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/5c74640c-c5cd-4a87-b577-3251fb7f9773" />
+<img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/86fcef58-b03a-4543-8320-70798aac6080" />
+<img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/bb128acf-6d78-4bfe-b948-7c99ffec7786" />
+<img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/2fa76abf-6f0e-42d2-badb-c3f51f8a379e" />
+<img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/47defcab-597d-45e7-9133-77d2e685e8ee" />
+<img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/ca818c8d-06c6-45d1-9f1a-2dbea7d0f6b3" />
+<img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/ce14ee06-2667-4591-864a-4f1f08439f2d" />
+<img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/38abb14f-49a2-432e-a623-85178275c3b3" />
 
 
 ```python
