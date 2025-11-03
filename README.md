@@ -27,15 +27,14 @@ y las funciones  `butter `,  `filtfilt ` y  `welch ` del módulo  `scipy.signal 
 
 ```mermaid
 flowchart TD
-    A([Inicio]) --> B[Adquirir o cargar señal EMG]
-    B --> C[Preprocesar señal]
-    C --> D[Calcular envolvente / filtrar]
+    A([Inicio]) --> B[Adquirir o cargar senal EMG]
+    B --> C[Preprocesar senal]
+    C --> D[Calcular envolvente o filtrar]
     D --> E[Detectar regiones de actividad muscular]
-    E --> F[Visualizar señal y contracciones]
+    E --> F[Visualizar senal y contracciones]
     F --> G[Segmentar contracciones individuales]
-    G --> H[Analizar frecuencia y características de cada contracción]
-    H --> I[Presentar resultados (gráficos y tablas)]
-    I --> J([Fin])
+    G --> H[Presentar resultados: graficos y tablas]
+    H --> I([Fin])
 ```
 
 **visualizacion de la señal**
