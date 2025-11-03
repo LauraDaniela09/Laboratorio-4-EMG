@@ -175,6 +175,8 @@ else:
 ```
 
 <img width="523" height="374" alt="image" src="https://github.com/user-attachments/assets/9568fa76-e26c-4b87-b810-beb09d3935b8" />
+
+
 Energía altas frecuencias (inicio): 7.7270
 Energía altas frecuencias (final): 7.7534
 No hay reducción significativa en altas frecuencias.
@@ -205,6 +207,8 @@ else:
 ```
 
 <img width="855" height="393" alt="image" src="https://github.com/user-attachments/assets/73c6db60-ab93-429e-b883-daafbd5ce442" />
+
+
 Pico espectral inicial: 4.00 Hz
 Pico espectral final: 4.00 Hz
 No se observa desplazamiento hacia bajas frecuencias.
