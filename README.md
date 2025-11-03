@@ -44,6 +44,12 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 ```
+Esta parte del código se encarga de cargar y visualizar la señal electromiográfica (EMG).
+Primero se define la frecuencia de muestreo (`fs = 2000`) y se especifica la ruta del archivo CSV (`archivo = "/content/emg_data1.csv"`) que contiene los datos adquiridos.
+Luego, con la librería `pandas`, se utiliza `read_csv()` para leer el archivo y almacenar la información en un DataFrame.
+Las columnas del archivo se asignan a dos variables: `t`, que representa el tiempo en segundos, y emg, que corresponde a la amplitud de la señal registrada.
+
+Finalmente, se emplea `matplotlib.pyplot` para graficar la señal EMG completa, mostrando su comportamiento en el tiempo, con los ejes y título configurados para una visualización clara.
 ## resultado
 <p align="center">
 <img width="700" height="390" alt="image" src="https://github.com/user-attachments/assets/c482b7ea-04d6-4140-8e1a-0904544b336d" />
@@ -55,7 +61,6 @@ df = pd.read_csv(archivo)
 t = df.iloc[:, 0].values
 emg = df.iloc[:, 1].values
 
-# === Envolvente ===
 analytic = signal.hilbert(emg)
 envelope = np.abs(analytic)
 ventana = int(0.02 * fs)
@@ -95,6 +100,10 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 ```
+En esta parte del código se realiza el procesamiento de la señal EMG para detectar las contracciones musculares. Primero se carga el archivo con los datos de tiempo y amplitud, y se calcula la envolvente suavizada, la cual representa los cambios en la amplitud de la señal a lo largo del tiempo y permite identificar con mayor claridad los momentos en que el músculo se activa.
+Luego, se establece un umbral que sirve como referencia para determinar cuándo la señal es lo suficientemente alta como para considerarse una contracción. A partir de ese umbral, se crea una condición que indica si la señal está activa o no. Con ayuda de las estructuras if, el programa recorre la señal punto por punto: cuando detecta que la señal supera el umbral, se marca el inicio de una contracción, y cuando vuelve a bajar, se marca el final. Si la duración de esa contracción supera un tiempo mínimo, se guarda como una región válida.
+Finalmente, se grafica la señal EMG original junto con la envolvente suavizada y las zonas donde se detectaron las contracciones, destacadas con un sombreado rosado, lo que permite visualizar de forma clara los periodos de actividad y reposo del músculo.
+
 ## resultado
 <p align="center">
 <img width="700" height="390" alt="image" src="https://github.com/user-attachments/assets/117e246d-5e3f-4edf-abdf-436c13b51e53" />
@@ -103,50 +112,14 @@ plt.show()
 **segmentacion de las contracciones**
 
 ```python
-fs = 2000
-archivo = "/content/emg_data1.csv"
-
-df = pd.read_csv(archivo)
-t = df.iloc[:, 0].values
-emg = df.iloc[:, 1].values
-
-# === Envolvente y detección igual que antes ===
-analytic = signal.hilbert(emg)
-envelope = np.abs(analytic)
-ventana = int(0.02 * fs)
-envelope_smooth = np.convolve(envelope, np.ones(ventana)/ventana, mode='same')
-
-umbral = np.mean(envelope_smooth) + 0.5 * np.std(envelope_smooth)
-activo = envelope_smooth > umbral
-min_duracion = int(0.1 * fs)
-
-regiones = []
-en_region = False
-for i in range(len(activo)):
-    if activo[i] and not en_region:
-        inicio = i
-        en_region = True
-    if not activo[i] and en_region:
-        fin = i
-        en_region = False
-        if fin - inicio >= min_duracion:
-            regiones.append((inicio, fin))
-if en_region:
-    fin = len(activo) - 1
-    if fin - inicio >= min_duracion:
-        regiones.append((inicio, fin))
-
-# === Solo las primeras 5 contracciones ===
+margen = int(0.2 * fs)
 regiones = regiones[:5]
-
-# === Graficar cada contracción ===
-margen = int(0.2 * fs)  # 200 ms antes y después
-
 for i, (s, e) in enumerate(regiones):
     inicio = max(0, s - margen)
     fin = min(len(emg), e + margen)
+    
     plt.figure(figsize=(8,3))
-    plt.plot(t[inicio:fin], emg[inicio:fin], color='#FF00AA')
+    plt.plot(t[inicio:fin], emg[inicio:fin], color='#FF00AA')  # señal EMG
     plt.axvspan(t[s], t[e], color='#C8A2C8', alpha=0.3, label="Contracción detectada")
     plt.title(f"Contracción {i+1}")
     plt.xlabel("Tiempo (s)")
@@ -156,6 +129,10 @@ for i, (s, e) in enumerate(regiones):
     plt.tight_layout()
     plt.show()
 ```
+Esta parte del código se encarga de mostrar de forma individual las contracciones musculares detectadas en la señal electromiográfica (EMG).
+Primero, se define un margen de 200 milisegundos antes y después de cada contracción (`margen = int(0.2 * fs)`) para visualizar con mayor detalle el inicio y el final de cada una. Luego, se seleccionan las cinco primeras contracciones (`regiones = regiones[:5]`) con el fin de limitar el número de gráficas generadas.
+
+Mediante un ciclo `for`, el programa recorre cada contracción detectada y genera una figura independiente. En cada una, se grafica la señal EMG en color fucsia, representando la variación de amplitud del músculo durante la contracción, mientras que el intervalo correspondiente a la actividad muscular se resalta con un sombreado lila para identificar claramente el momento de la contracción.
 ## resultado
 <p align="center">
 <img width="400" height="290" alt="image" src="https://github.com/user-attachments/assets/e56e21bf-f943-4d01-9eb2-a18cc66154b2" />
@@ -170,6 +147,42 @@ for i, (s, e) in enumerate(regiones):
 <p align="center">
 <img width="400" height="290" alt="image" src="https://github.com/user-attachments/assets/a00857b0-b69e-4f9f-8b1f-d719f6fcdbbd" />
 </p>
+
+**calculo de frecuencia media y mediana**
+
+```python
+frecuencia_media = []
+frecuencia_mediana = []
+
+for s, e in regiones:
+    segmento = emg[s:e]                      # Señal de cada contracción
+    f, Pxx = welch(segmento, fs=fs, nperseg=512)  # Espectro de potencia
+    Pxx_norm = Pxx / np.sum(Pxx)             # Normaliza la potencia
+
+    f_mean = np.sum(f * Pxx_norm)            # Frecuencia media
+    f_median = f[np.searchsorted(np.cumsum(Pxx_norm), 0.5)]  # Frecuencia mediana
+
+    frecuencia_media.append(f_mean)
+    frecuencia_mediana.append(f_median)
+
+# === Mostrar resultados en tabla ===
+tabla = pd.DataFrame({
+    "Contracción": [f"{i+1}" for i in range(len(regiones))],
+    "Frecuencia media (Hz)": np.round(frecuencia_media, 2),
+    "Frecuencia mediana (Hz)": np.round(frecuencia_mediana, 2)
+})
+
+print(tabla)
+```
+Este código calcula la frecuencia media y mediana de cada contracción detectada en la señal EMG. Primero, se utilizan las librerías `scipy.signal`, `numpy` y `pandas` para procesar los datos. Dentro de un ciclo `for`, se recorre cada contracción y se aplica el método de Welch para obtener el espectro de potencia de la señal, representado por las frecuencias (`f`) y su energía (`Pxx`). Luego, se normaliza el espectro para calcular la frecuencia media, que indica el promedio ponderado de las frecuencias, y la frecuencia mediana, que marca el punto donde se concentra el 50 % de la energía total. Finalmente, los resultados se organizan en una tabla que muestra, para cada contracción muscular, los valores obtenidos de ambas frecuencias, facilitando el análisis de la variación en el contenido espectral de la señal.
+
+El **método de Welch** se usa para ver cómo se distribuye la energía de una señal en diferentes frecuencias. Para hacerlo más claro: se divide la señal en partes más pequeñas, se suaviza cada parte con una ventana, se calcula el espectro de cada parte y luego se promedian todos esos espectros para obtener un resultado más estable y menos ruidoso.
+## resultado
+<img width="500" height="163" alt="image" src="https://github.com/user-attachments/assets/68e61788-d62a-4296-87a3-0be0eb9a5e4a" />
+
+
+
+
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 B 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
