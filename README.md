@@ -75,7 +75,7 @@ plt.show()
 ```
 ## resultado
 <p align="center">
-<img width="900" height="390" alt="image" src="https://github.com/user-attachments/assets/117e246d-5e3f-4edf-abdf-436c13b51e53" />
+<img width="700" height="390" alt="image" src="https://github.com/user-attachments/assets/117e246d-5e3f-4edf-abdf-436c13b51e53" />
 </p>
 
 **segmentacion de las contracciones**
@@ -136,7 +136,8 @@ for i, (s, e) in enumerate(regiones):
 ```
 ## resultado
 <p align="center">
-<img width="790" height="290" alt="image" src="https://github.com/user-attachments/assets/ff58afe2-3666-48cd-b38d-8c3d6b8d3e8d" />
+<img width="400" height="290" alt="image" src="https://github.com/user-attachments/assets/e56e21bf-f943-4d01-9eb2-a18cc66154b2" />
+<img width="400" height="290" alt="image" src="https://github.com/user-attachments/assets/ff58afe2-3666-48cd-b38d-8c3d6b8d3e8d" />
 </p>
 
 
