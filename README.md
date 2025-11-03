@@ -24,7 +24,9 @@ y las funciones  `butter `,  `filtfilt ` y  `welch ` del módulo  `scipy.signal 
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 A 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
-![My First Board (1)](https://github.com/user-attachments/assets/2fb05c30-abe8-4d96-be04-2009afc80c6e)
+<p align="center">
+  <img src="./ruta/del/archivo/dcfc61d8-e3f1-43c2-80c0-fc88bd4f06b2.jpg" width="500"/>
+</p>
 
 **visualizacion de la señal**
 ```python
