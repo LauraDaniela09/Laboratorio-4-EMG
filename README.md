@@ -236,10 +236,12 @@ else:
 
 <img width="523" height="374" alt="image" src="https://github.com/user-attachments/assets/9568fa76-e26c-4b87-b810-beb09d3935b8" />
 
-
+```python
 Energía altas frecuencias (inicio): 7.7270
 Energía altas frecuencias (final): 7.7534
 No hay reducción significativa en altas frecuencias.
+
+```
 
 ```python
 pico_inicial = f_seg[np.argmax(fft_seg1[:len(f_seg)//2])]
@@ -268,7 +270,7 @@ else:
 
 <img width="855" height="393" alt="image" src="https://github.com/user-attachments/assets/73c6db60-ab93-429e-b883-daafbd5ce442" />
 
-
+```python
 Pico espectral inicial: 4.00 Hz
 Pico espectral final: 4.00 Hz
 No se observa desplazamiento hacia bajas frecuencias.
@@ -285,3 +287,4 @@ hacia frecuencias más bajas son indicadores de fatiga muscular.
 
 Por tanto, la FFT es una herramienta diagnóstica útil en electromiografía
 para evaluar la condición del músculo y su comportamiento ante esfuerzos sostenidos.
+```
