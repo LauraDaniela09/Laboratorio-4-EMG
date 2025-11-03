@@ -153,3 +153,71 @@ plt.grid(True)
 plt.show()
 ```
 <img width="855" height="394" alt="image" src="https://github.com/user-attachments/assets/ba531b9c-5150-4fb1-9a13-340b40544f6f" />
+
+```python
+energia_alta_1 = np.sum(fft_seg1[int(len(f_seg)*0.25):])
+energia_alta_2 = np.sum(fft_seg2[int(len(f_seg)*0.25):])
+
+plt.figure(figsize=(6,4))
+plt.bar(["Inicio", "Final"], [energia_alta_1, energia_alta_2], color=['blue','orange'])
+plt.title("Energía en altas frecuencias")
+plt.ylabel("Energía relativa")
+plt.grid(axis='y')
+plt.show()
+
+print(f"Energía altas frecuencias (inicio): {energia_alta_1:.4f}")
+print(f"Energía altas frecuencias (final): {energia_alta_2:.4f}")
+
+if energia_alta_2 < energia_alta_1:
+    print("Se reduce el contenido de alta frecuencia → posible fatiga muscular.")
+else:
+    print("No hay reducción significativa en altas frecuencias.")
+```
+
+<img width="523" height="374" alt="image" src="https://github.com/user-attachments/assets/9568fa76-e26c-4b87-b810-beb09d3935b8" />
+Energía altas frecuencias (inicio): 7.7270
+Energía altas frecuencias (final): 7.7534
+No hay reducción significativa en altas frecuencias.
+
+```python
+pico_inicial = f_seg[np.argmax(fft_seg1[:len(f_seg)//2])]
+pico_final = f_seg[np.argmax(fft_seg2[:len(f_seg)//2])]
+
+plt.figure(figsize=(10,4))
+plt.plot(f_seg[:len(f_seg)//2], fft_seg1[:len(f_seg)//2], label=f"Inicio (pico {pico_inicial:.1f} Hz)", color='blue')
+plt.plot(f_seg[:len(f_seg)//2], fft_seg2[:len(f_seg)//2], label=f"Final (pico {pico_final:.1f} Hz)", color='orange', alpha=0.7)
+plt.axvline(pico_inicial, color='blue', linestyle='--')
+plt.axvline(pico_final, color='orange', linestyle='--')
+plt.title("Desplazamiento del pico espectral")
+plt.xlabel("Frecuencia [Hz]")
+plt.ylabel("Amplitud")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+print(f"Pico espectral inicial: {pico_inicial:.2f} Hz")
+print(f"Pico espectral final: {pico_final:.2f} Hz")
+
+if pico_final < pico_inicial:
+    print("El pico espectral se desplazó hacia frecuencias bajas → esfuerzo sostenido.")
+else:
+    print("No se observa desplazamiento hacia bajas frecuencias.")
+```
+
+<img width="855" height="393" alt="image" src="https://github.com/user-attachments/assets/73c6db60-ab93-429e-b883-daafbd5ce442" />
+Pico espectral inicial: 4.00 Hz
+Pico espectral final: 4.00 Hz
+No se observa desplazamiento hacia bajas frecuencias.
+
+
+Conclusiones:
+
+El análisis espectral mediante la Transformada Rápida de Fourier (FFT)
+permite observar cómo el contenido en frecuencia de la señal EMG cambia
+durante el esfuerzo muscular. 
+
+Una disminución de energía en altas frecuencias y el desplazamiento del pico
+hacia frecuencias más bajas son indicadores de fatiga muscular. 
+
+Por tanto, la FFT es una herramienta diagnóstica útil en electromiografía
+para evaluar la condición del músculo y su comportamiento ante esfuerzos sostenidos.
