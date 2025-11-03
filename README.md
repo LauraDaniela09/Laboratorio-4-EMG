@@ -300,6 +300,46 @@ for n, seg in enumerate(segmentos):
 Se crea un bucle donde por cada contracción se calcula la transformada de fourier, la potencia, la frecuencia media y la frecuencia mediana.
 Al final se escriben los datos obtenidos para cada contracción.
 
+```python
+for n, seg in enumerate(segmentos):
+    N = len(seg)
+    fft_vals = np.fft.fft(seg)
+    fft_vals = np.abs(fft_vals[:N//2])
+    freqs = np.fft.fftfreq(N, 1/fs)[:N//2]
+    Pxx = (fft_vals ** 2) / N
+
+    plt.figure(figsize=(8,4))
+    plt.plot(freqs, Pxx)
+    plt.title(f'Espectro de frecuencias (FFT) - Contracción {n+1}')
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('Potencia (a.u.)')
+    plt.xlim(0, 500)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+```
+Se grafican individualmente los espectros de frecuencias de cada contracción.
+
+```python
+plt.figure(figsize=(7,4))
+plt.plot(range(1, len(freq_medias)+1), freq_medias, 'o-', label='Frecuencia media')
+plt.plot(range(1, len(freq_medianas)+1), freq_medianas, 's-', label='Frecuencia mediana')
+plt.title('Grafica de tendencias de la frecuencia')
+plt.xlabel('Número de contracción')
+plt.ylabel('Frecuencia (Hz)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+```
+Finalmente se grafica la tendencia de las frecuencias para analizar la fatiga y su comportamiento.
+
+
+En el experimento se realizaron las medidas de varias contracciones del brazo al apretar un objeto. En la grafica se muestra que las frecuencias incialmente estan en valores promedios como 40-45 Hz, lo cual corresponde a actividad muscular normal, a partir de la cuarta contracción la frecuencia tiende a disminuir, indicando cierto nivel de fatiga muscular, aunque esta reducción no es muy extrema, por lo cual se podría decir que no se alcanzó la fatiga completamente.
+
+
+Los cambios en la frecuencia y la fatiga fisiologica se basan en que a lo largo de una contracción repetida, el musculo consume grandes cantidades de ATP, y como resultado se acumula acido lactico e iones de H en la fibra muscular. Este exceso de H inhibe los canales de Na y K, reduciendo la generación de potenciales de acción, y haciendo que la señal electrica viaje más lento, haciendo que las frecuencias disminuyan a medida que hay más contracciones y mas fatiga. 
+
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 C 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
