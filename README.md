@@ -24,6 +24,7 @@ y las funciones  `butter `,  `filtfilt ` y  `welch ` del módulo  `scipy.signal 
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 A 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
+```mermaid
 flowchart TD
     A[Inicio] --> B[Adquirir o cargar señal EMG]
     B --> C[Preprocesar señal]
