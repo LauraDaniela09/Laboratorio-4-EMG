@@ -345,6 +345,7 @@ plt.tight_layout()
 plt.show()
 ```
 Finalmente se grafica la tendencia de las frecuencias para analizar la fatiga y su comportamiento.
+<img width="689" height="390" alt="image" src="https://github.com/user-attachments/assets/8054892a-484e-4fa1-af47-59c0ee8c2d78" />
 
 
 En el experimento se realizaron las medidas de varias contracciones del brazo al apretar un objeto. En la grafica se muestra que las frecuencias incialmente estan en valores promedios como 40-45 Hz, lo cual corresponde a actividad muscular normal, a partir de la cuarta contracción la frecuencia tiende a disminuir, indicando cierto nivel de fatiga muscular, aunque esta reducción no es muy extrema, por lo cual se podría decir que no se alcanzó la fatiga completamente.
