@@ -202,17 +202,18 @@ El **método de Welch** se usa para ver cómo se distribuye la energía de una s
 ```mermaid
 flowchart TD
     A([Inicio]) --> B[Leer archivo CSV con senal EMG]
-    B --> C[Preprocesar datos: convertir a numerico y obtener tiempo y voltaje]
-    C --> D[Calcular frecuencia de muestreo (fs)]
-    D --> E[Seleccionar ventana de interes (fragmento de la senal)]
-    E --> F[Aplicar filtro pasabanda Butterworth (20-450 Hz)]
-    F --> G[Detectar contracciones usando find_peaks]
-    G --> H[Segmentar senal en cada contraccion]
-    H --> I[Aplicar FFT por contraccion]
+    B --> C[Preprocesar datos y obtener tiempo y voltaje]
+    C --> D[Calcular frecuencia de muestreo fs]
+    D --> E[Seleccionar ventana de interes de la senal]
+    E --> F[Aplicar filtro pasabanda Butterworth 20-450 Hz]
+    F --> G[Detectar contracciones con find_peaks]
+    G --> H[Segmentar senal en contracciones individuales]
+    H --> I[Aplicar FFT a cada contraccion]
     I --> J[Calcular frecuencia media y mediana]
-    J --> K[Graficar espectros individuales]
-    K --> L[Analizar tendencias de frecuencia y fatiga]
+    J --> K[Graficar espectros y tendencias de frecuencia]
+    K --> L[Analizar fatiga muscular]
     L --> M([Fin])
+
 ```
 
 ```python
