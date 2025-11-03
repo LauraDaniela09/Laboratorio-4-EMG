@@ -221,6 +221,9 @@ plt.show()
 <img width="400" height="490" alt="image" src="https://github.com/user-attachments/assets/1de932f4-ce92-4714-9274-18b3b7023d5a" />
 </p>
 
+**analisis de las frecuencias**
+Al analizar la evolución de la frecuencia media y la frecuencia mediana a lo largo de las contracciones simuladas, se observa que ambas se mantienen prácticamente constantes, sin variaciones significativas entre una contracción y otra. La frecuencia media presenta valores entre 11.58 Hz y 11.61 Hz, mientras que la frecuencia mediana se mantiene alrededor de 7.58 Hz a 7.60 Hz. Esta estabilidad indica que no hay evidencia de fatiga muscular simulada, ya que en una señal EMG real la frecuencia mediana tiende a disminuir progresivamente con el tiempo cuando existe fatiga. Por lo tanto, los resultados obtenidos sugieren que las contracciones analizadas corresponden a una actividad muscular constante y controlada, sin cambios notables en las características espectrales de la señal.
+
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 B 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
 ```mermaid
