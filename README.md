@@ -186,6 +186,46 @@ El **método de Welch** se usa para ver cómo se distribuye la energía de una s
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 B 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
+```
+signal = "captura_musculo.csv"
+data = pd.read_csv(signal, skiprows=1, names=["Tiempo", "Voltaje"])
+data["Tiempo"] = pd.to_numeric(data["Tiempo"], errors="coerce")
+data["Voltaje"] = pd.to_numeric(data["Voltaje"], errors="coerce")
+t = data["Tiempo"].values
+emg = data["Voltaje"].values
+fs = 1 / np.mean(np.diff(t))  # frecuencia de muestreo inferida del tiempo
+
+print(f"Frecuencia de muestreo ≈ {fs:.1f} Hz")
+```
+Se lee la señal del EMG guardada en un .csv que anteriormente fue obtenida usando electrodos, DAQ y STlink.
+```
+def butter_bandpass(lowcut, highcut, fs, order=4):
+    nyq = 0.5 * fs
+    low = lowcut / nyq
+    high = highcut / nyq
+    b, a = butter(order, [low, high], btype='band')
+    return b, a
+```
+Se define y diseña un filtro pasabanda tipo butterworth para usar más adelante.
+```
+t_inicio = 76.0
+t_fin = 82.5
+mask = (t >= t_inicio) & (t <= t_fin)
+t_zoom = t[mask]
+emg_zoom = emg[mask]
+
+plt.figure(figsize=(12, 4))
+plt.plot(t_zoom, emg_zoom, color='gray')
+plt.title(f"Señal EMG cruda ({t_inicio:.1f}s - {t_fin:.1f}s)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Voltaje [V]")
+plt.grid(True)
+plt.show()
+```
+Se crea una ventana para fragmentar la señal completa y solo usar la parte donde se encuentran las contracciones. 
+Se grafica esta señal ya recortada.
+
+
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 C 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
 ```python
