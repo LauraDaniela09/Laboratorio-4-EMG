@@ -83,3 +83,34 @@ plt.show()
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 B 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 C 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
+```python
+# Cargar datos
+data = pd.read_csv("emg_data1.csv")
+
+# Convertir columnas a valores numéricos
+data["Tiempo [s]"] = pd.to_numeric(data["Tiempo [s]"], errors='coerce')
+data["Voltaje [V]"] = pd.to_numeric(data["Voltaje [V]"], errors='coerce')
+
+t = data["Tiempo [s]"].values
+emg = data["Voltaje [V]"].values
+
+# Frecuencia de muestreo estimada
+fs = 1 / np.mean(np.diff(t))
+N = len(emg)
+print(f"Frecuencia de muestreo estimada: {fs:.2f} Hz")
+
+# FFT
+frecuencias = fftfreq(N, 1/fs)
+fft_emg = fft(emg)
+amplitud = np.abs(fft_emg) / N
+
+# Gráfica señal original
+plt.figure(figsize=(10,3))
+plt.plot(t, emg, color='blue')
+plt.title("Señal EMG original en el tiempo")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Voltaje [V]")
+plt.grid(True)
+plt.show()
+
+```
