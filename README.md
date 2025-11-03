@@ -222,6 +222,7 @@ plt.ylabel("Voltaje [V]")
 plt.grid(True)
 plt.show()
 ```
+<img width="1012" height="393" alt="image" src="https://github.com/user-attachments/assets/4b143729-cc93-4c52-bfd8-1167aad52542" />
 Se crea una ventana para fragmentar la señal completa y solo usar la parte donde se encuentran las contracciones. 
 Se grafica esta señal ya recortada pero sin filtrar.
 
@@ -237,6 +238,7 @@ plt.ylabel("Voltaje [V]")
 plt.grid(True)
 plt.show()
 ```
+<img width="1012" height="393" alt="image" src="https://github.com/user-attachments/assets/b261bfb9-5750-48da-a790-3ebf49cba003" />
 Se aplica el filtro definido anteriormente como pasabanda entre 20-450 Hz.
 Se grafica esta señal recortada y filtrada.
 ```python
@@ -262,6 +264,7 @@ plt.show()
 
 print(f" Se detectaron {len(picos)} contracciones.")
 ```
+<img width="1012" height="394" alt="image" src="https://github.com/user-attachments/assets/8cb9b43d-b67a-41b3-b35b-82c62882e583" />
 Se usa find peaks para identificar los picos (contracciones) y se grafica nuevamente la señal, pero resaltando estos picos identificados para ver su distribución y que sean correctos.
 
 ```python
@@ -319,6 +322,8 @@ for n, seg in enumerate(segmentos):
     plt.show()
 ```
 Se grafican individualmente los espectros de frecuencias de cada contracción.
+<img width="790" height="390" alt="image" src="https://github.com/user-attachments/assets/5c74640c-c5cd-4a87-b577-3251fb7f9773" />
+
 
 ```python
 plt.figure(figsize=(7,4))
