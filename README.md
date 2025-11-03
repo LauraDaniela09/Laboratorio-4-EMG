@@ -115,3 +115,6 @@ plt.grid(True)
 plt.show()
 
 ```
+<img width="844" height="316" alt="image" src="https://github.com/user-attachments/assets/8e581ef1-051e-4037-a31d-4e4bf310b28b" />
+
+Frecuencia de muestreo estimada: 2000.00 Hz
