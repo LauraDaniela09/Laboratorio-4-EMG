@@ -78,6 +78,66 @@ plt.show()
 <img width="900" height="390" alt="image" src="https://github.com/user-attachments/assets/117e246d-5e3f-4edf-abdf-436c13b51e53" />
 </p>
 
+**segmentacion de las contracciones**
+
+```python
+fs = 2000
+archivo = "/content/emg_data1.csv"
+
+df = pd.read_csv(archivo)
+t = df.iloc[:, 0].values
+emg = df.iloc[:, 1].values
+
+# === Envolvente y detección igual que antes ===
+analytic = signal.hilbert(emg)
+envelope = np.abs(analytic)
+ventana = int(0.02 * fs)
+envelope_smooth = np.convolve(envelope, np.ones(ventana)/ventana, mode='same')
+
+umbral = np.mean(envelope_smooth) + 0.5 * np.std(envelope_smooth)
+activo = envelope_smooth > umbral
+min_duracion = int(0.1 * fs)
+
+regiones = []
+en_region = False
+for i in range(len(activo)):
+    if activo[i] and not en_region:
+        inicio = i
+        en_region = True
+    if not activo[i] and en_region:
+        fin = i
+        en_region = False
+        if fin - inicio >= min_duracion:
+            regiones.append((inicio, fin))
+if en_region:
+    fin = len(activo) - 1
+    if fin - inicio >= min_duracion:
+        regiones.append((inicio, fin))
+
+# === Solo las primeras 5 contracciones ===
+regiones = regiones[:5]
+
+# === Graficar cada contracción ===
+margen = int(0.2 * fs)  # 200 ms antes y después
+
+for i, (s, e) in enumerate(regiones):
+    inicio = max(0, s - margen)
+    fin = min(len(emg), e + margen)
+    plt.figure(figsize=(8,3))
+    plt.plot(t[inicio:fin], emg[inicio:fin], color='#FF00AA')
+    plt.axvspan(t[s], t[e], color='#C8A2C8', alpha=0.3, label="Contracción detectada")
+    plt.title(f"Contracción {i+1}")
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+```
+## resultado
+<p align="center">
+<img width="790" height="290" alt="image" src="https://github.com/user-attachments/assets/ff58afe2-3666-48cd-b38d-8c3d6b8d3e8d" />
+</p>
 
 
 <h1 align="center"><i><b>𝐏𝐚𝐫𝐭𝐞 B 𝐝𝐞𝐥 𝐥𝐚𝐛𝐨𝐫𝐚𝐭𝐨𝐫𝐢𝐨</b></i></h1>
