@@ -251,7 +251,7 @@ data["Tiempo"] = pd.to_numeric(data["Tiempo"], errors="coerce")
 data["Voltaje"] = pd.to_numeric(data["Voltaje"], errors="coerce")
 t = data["Tiempo"].values
 emg = data["Voltaje"].values
-fs = 1 / np.mean(np.diff(t))  # frecuencia de muestreo inferida del tiempo
+fs = 1 / np.mean(np.diff(t))  
 
 print(f"Frecuencia de muestreo ≈ {fs:.1f} Hz")
 ```
